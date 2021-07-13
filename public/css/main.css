@@ -5,3 +5,15 @@ body{
 .bgColorPrim{
     background-color: #2e5077;
 }
+
+.bgColorSec{
+    background-color: #611c35;
+}
+
+.text-color{
+    color: #d7e8ba; 
+}
+
+.nav> .nav-item> .nav-link{
+    color: #d7e8ba;
+}

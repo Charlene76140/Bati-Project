@@ -3,38 +3,30 @@
 {% block title %}Project index{% endblock %}
 
 {% block body %}
-    <h1>Project index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>CreationDate</th>
-                <th>Deadline</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for project in projects %}
-            <tr>
-                <td>{{ project.id }}</td>
-                <td>{{ project.name }}</td>
-                <td>{{ project.description }}</td>
-                <td>{{ project.creationDate ? project.creationDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ project.deadline ? project.deadline|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('project_new') }}">Create new</a>
+<main>
+    <section class="container my-5">
+        <aside class="text-center">
+            <a href="{{ path('project_new') }}" class="btn btn-lg bgColorPrim text-color my-4"> <i class="far fa-plus-square"></i> Créer un nouveau projet</a>
+        </aside>
+        <h2 class="my-3">Vos projets en cours : </h2>
+        <div class="row">
+            {% for project in app.user.projects %}
+            <article class="col-lg-3 m-auto my-5 text-center">
+                <div class="card text-center">
+                    <h5 class="card-header py-4">{{project.name}}</h5>
+                    <div class="card-body">
+                        <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: {{ project.deadline ? project.deadline|date('Y-m-d') : '' }}</h6>
+                        <hr>
+                        <p>{{ project.description }}</p>
+                        <hr>
+                        <a href="{{ path('project_show', {'id': project.id}) }}" class="btn bgColorPrim text-color my-4">show</a>
+                        <a href="{{ path('project_edit', {'id': project.id}) }}" class="btn bgColorPrim text-color my-4">edit</a>
+                        <a href="#" class="btn bgColorPrim text-color my-4">Finir</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+</main>   
 {% endblock %}
