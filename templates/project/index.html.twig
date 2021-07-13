@@ -8,10 +8,11 @@
         <aside class="text-center">
             <a href="{{ path('project_new') }}" class="btn btn-lg bgColorPrim text-color my-4"> <i class="far fa-plus-square"></i> Créer un nouveau projet</a>
         </aside>
-        <h2 class="my-3">Vos projets en cours : </h2>
+        <hr>
+        <h2 class="my-4 text-center">Vos projets en cours : </h2>
         <div class="row">
             {% for project in app.user.projects %}
-            <article class="col-lg-3 m-auto my-5 text-center">
+            <article class="col-10 col-md-5 col-lg-3 m-auto my-5 text-center">
                 <div class="card text-center">
                     <h5 class="card-header py-4">{{project.name}}</h5>
                     <div class="card-body">
