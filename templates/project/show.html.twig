@@ -21,11 +21,11 @@
             {% if project.tasks is not empty %}
                 {% for task in project.tasks %}
                 <article class="col-9 m-auto col-md-6 col-lg-4 my-5 text-center">
-                    <div class="card text-center">
+                    <div class="card border-danger text-center">
                         <div class="card-header py-4">
                             <div class="row">
                                 <div class="col-8">
-                                    <h5> {{task.name}} </h5>
+                                    <h5> <strong>{{task.name}}</strong> </h5>
                                 </div>
                                 <div class="col-4">   
                                     <h6 class="encours">{{task.status}}</h6>
