@@ -1,7 +1,7 @@
 <nav class="bgColorSec py-3">
     <div class="container-fluid">
         {% if app.user %}
-        <ul class="nav justify-content-start">
+        <ul class="nav justify-content-center justify-content-lg-start">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{ path('project_index') }}">Accueil</a>
             </li>
@@ -13,7 +13,7 @@
             </li>
         </ul>
         {% else %}
-        <ul class="nav justify-content-start">
+        <ul class="nav justify-content-center justify-content-lg-start">
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
             </li>
