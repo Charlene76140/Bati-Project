@@ -9,7 +9,7 @@
             <a href="{{ path('project_new') }}" class="btn btn-md bgColorPrim text-color mb-4"> <i class="far fa-plus-square"></i> Créer un nouveau projet</a>
         </aside>
         <hr>
-        <h2 class="my-4 text-center">Vos projets en cours : </h2>
+        <h2 class="my-4 text-center">Bonjour {{ app.user.firstname }}! Voici vos projets en cours : </h2>
         <div class="row">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
@@ -18,21 +18,26 @@
                     </div>
                 {% endfor %}
             {% endfor %}
-            {% for project in app.user.projects %}
-            <article class="col-9 m-auto col-md-6 col-lg-4 my-5 text-center">
-                <div class="card text-center">
-                    <h5 class="card-header text-colorPrim py-4">{{project.name}}</h5>
-                    <div class="card-body">
-                        <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: {{ project.deadline ? project.deadline|date('Y-m-d') : '' }}</h6>
-                        <hr>
-                        <p>{{ project.description }}</p>
-                        <hr>
-                        <a href="{{ path('project_show', {'id': project.id}) }}" class="btn bgColorPrim text-color my-3">Voir</a>
-                        <a href="#" class="btn bgColorPrim text-color my-3">Finir</a>
+            {% if app.user.projects is not empty %}
+                {% for project in app.user.projects %}
+                <article class="col-9 m-auto col-md-6 col-lg-4 my-5 text-center">
+                    <div class="card text-center">
+                        <h5 class="card-header text-colorPrim py-4">{{project.name}}</h5>
+                        <div class="card-body">
+                            <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: {{ project.deadline ? project.deadline|date('Y-m-d') : '' }}</h6>
+                            <hr>
+                            <p>{{ project.description }}</p>
+                            <hr>
+                            <a href="{{ path('project_show', {'id': project.id}) }}" class="btn bgColorPrim text-color my-3">Voir</a>
+                            <a href="{{ path('project_edit', {'id': project.id}) }}" class="btn bgColorPrim text-color my-3">Supprimer/modifier</a>
+                            <a href="#" class="btn bgColorPrim text-color my-3">Finir</a>
+                        </div>
                     </div>
-                </div>
-            </article>
-            {% endfor %}
+                </article>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-secondary">Pas de projet en cours pour l'instant</div>
+            {% endif %}
         </div>
     </section>
 </main>   

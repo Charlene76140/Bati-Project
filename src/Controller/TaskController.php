@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
+use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,19 +27,29 @@ class TaskController extends AbstractController
     //     ]);
     // }
 
-    #[Route('/new', name: 'task_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    #[Route('/new/{id}', name: 'task_new', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function new(int $id=1, ProjectRepository $projectRepository, Request $request): Response
     {
+        $project = $projectRepository->find($id);
+
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->setCreationDate(new \DateTime());
+            $task->setStatus("en cours");
+            $task->setProject($project);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($task);
             $entityManager->flush();
 
-            return $this->redirectToRoute('task_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash(
+                "success", 
+                "Nouvelle tâche enregistrée"
+            );
+
+            return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('task/new.html.twig', [
@@ -55,23 +66,23 @@ class TaskController extends AbstractController
     //     ]);
     // }
 
-    // #[Route('/{id}/edit', name: 'task_edit', methods: ['GET', 'POST'])]
-    // public function edit(Request $request, Task $task): Response
-    // {
-    //     $form = $this->createForm(TaskType::class, $task);
-    //     $form->handleRequest($request);
+    #[Route('/{id}/edit', name: 'task_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Task $task): Response
+    {
+        $form = $this->createForm(TaskType::class, $task);
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
 
-    //         return $this->redirectToRoute('task_index', [], Response::HTTP_SEE_OTHER);
-    //     }
+            return $this->redirectToRoute('task_index', [], Response::HTTP_SEE_OTHER);
+        }
 
-    //     return $this->renderForm('task/edit.html.twig', [
-    //         'task' => $task,
-    //         'form' => $form,
-    //     ]);
-    // }
+        return $this->renderForm('task/edit.html.twig', [
+            'task' => $task,
+            'form' => $form,
+        ]);
+    }
 
     #[Route('/{id}', name: 'task_delete', methods: ['POST'])]
     public function delete(Request $request, Task $task): Response
