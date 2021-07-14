@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Enity\User;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,9 +34,16 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $project->setCreationDate(new \DateTime());
+            $project->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($project);
             $entityManager->flush();
+
+            $this->addFlash(
+                "success", 
+                "Votre projet a bien été ouvert"
+            );
 
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -46,12 +54,15 @@ class ProjectController extends AbstractController
         ]);
     }
 
+
     #[Route('/{id}', name: 'project_show', methods: ['GET'])]
     public function show(Project $project): Response
     {
+        $tasks = $project->getTasks();
         if($project->getUser()==$this->getUser()){ 
             return $this->render('project/show.html.twig', [
             'project' => $project,
+            'tasks' => $tasks
             ]);
         }
         else {

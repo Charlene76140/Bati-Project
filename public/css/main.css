@@ -18,6 +18,10 @@ main{
     color: #d7e8ba; 
 }
 
+.text-colorPrim{
+    color : #2e5077;
+}
+
 .nav> .nav-item> .nav-link{
     color: #d7e8ba;
 }
@@ -31,6 +35,18 @@ header h1{
     font-size: 1em;
 }
 
+.encours{
+    border : 1px solid #611c35;
+    background-color : #611c35;
+    color: white; 
+}
+
+.termine{
+    border: 1 px solid green;
+    background-color: green;
+    color: white; 
+    
+}
 
 /*-----------------------Ipad Version------------------------------------------*/
  @media screen and (min-width: 576px){

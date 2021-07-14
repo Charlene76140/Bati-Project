@@ -1,4 +1,4 @@
-<nav class="bgColorSec py-3">
+<nav class="bgColorSec py-2">
     <div class="container-fluid">
         {% if app.user %}
         <ul class="nav justify-content-center justify-content-lg-start">
@@ -18,7 +18,7 @@
                 <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">S'inscrire</a>
+                <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
             </li>
         </ul>
         {% endif %}
