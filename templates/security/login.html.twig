@@ -7,7 +7,7 @@
     <section class="container my-5 align-items-center">
         <h2 class="my-5 text-center">Merci de vous connecter : </h2>
         <div class="row">
-            <div class="col-10 col-sm-8 col-lg-5 m-auto">
+            <div class="col-10 col-sm-8 col-lg-4 m-auto">
                 <form method="post">
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -39,7 +39,7 @@
                         </div>
                     #}
                 
-                    <button class="btn btn-sm btn-lg bgColorSec text-color my-4" type="submit">
+                    <button class="btn btn-md bgColorSec text-color my-4" type="submit">
                         Se connecter
                     </button>
                 </form> 
