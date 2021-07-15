@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project{% endblock %}
+{% block title %}Projets{% endblock %}
 
 {% block body %}
 <main>
@@ -28,7 +28,7 @@
                                 <div class="col-8">
                                     <h5> <strong>{{task.name}}</strong> </h5>
                                 </div>
-                                {% if task.status == "en cours"%}
+                                {% if task.status == "En cours"%}
                                 <div class="col-4">   
                                     <h6 class="encours">{{task.status}}</h6>
                                 </div>
@@ -40,18 +40,18 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: <em class="text-colorSec">{{ task.deadline ? task.deadline|date('d-m-Y') : '' }}</em></h6>
+                            <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: <strong class="text-colorSec">{{ task.deadline ? task.deadline|date('d-m-Y') : '' }}</strong></h6>
                             <hr>
                             <p>{{ task.description }}</p>
                             <hr>
-                            {% if task.status == "en cours" %}
-                            <div class="row">
-                                <div class="col-8 col-sm-4 col-md-4 col-lg-6 col-xl-5 col-xxl-3 m-auto">
+                            {% if task.status == "En cours" %}
+                            <div class="row m-auto">
+                                <div class="col-8 col-sm-4 col-md-4 col-lg-6">
                                     <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn bgColorPrim text-color my-4">Modifier/supprimer</a>
                                 </div>
-                                <div class="col-4 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-8 m-auto">
+                                <div class="col-4 col-sm-6 col-md-6 col-lg-6">
                                     <form action="" method="post">
-                                        <button type="submit" name="finir" value="{{task.id}}" class="btn bgColorPrim text-color my-4">Finir</button>
+                                        <button type="submit" name="finir" value="{{task.id}}" class="btn bgColorPrim text-color my-4 w-100">Finir</button>
                                     </form>
                                 </div>
                             </div>

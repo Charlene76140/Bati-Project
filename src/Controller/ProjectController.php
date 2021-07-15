@@ -71,13 +71,13 @@ class ProjectController extends AbstractController
                 "success", 
                 "Votre tâche est maintenant terminé"
             );
+
+            return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()], Response::HTTP_SEE_OTHER);
         };
 
-        $tasks = $project->getTasks();
         if($project->getUser()==$this->getUser()){ 
             return $this->render('project/show.html.twig', [
             'project' => $project,
-            'tasks' => $tasks
             ]);
         }
         else {
