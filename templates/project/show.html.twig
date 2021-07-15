@@ -4,6 +4,7 @@
 
 {% block body %}
 <main>
+    {{ include('project/_help.html.twig') }}
     <section class="container my-5">
         <aside class="text-center">
             <a href="{{ path('task_new', {id: project.id}) }}" class="btn btn-md bgColorPrim text-color my-4"> <i class="far fa-plus-square"></i> Créer une nouvelle tâche</a>
@@ -21,31 +22,51 @@
             {% if project.tasks is not empty %}
                 {% for task in project.tasks %}
                 <article class="col-9 m-auto col-md-6 col-lg-4 my-5 text-center">
-                    <div class="card border-danger text-center">
+                    <div class="card text-center">
                         <div class="card-header py-4">
                             <div class="row">
                                 <div class="col-8">
                                     <h5> <strong>{{task.name}}</strong> </h5>
                                 </div>
+                                {% if task.status == "en cours"%}
                                 <div class="col-4">   
                                     <h6 class="encours">{{task.status}}</h6>
                                 </div>
+                                {% else %}
+                                <div class="col-4">   
+                                    <h6 class="termine">{{task.status}}</h6>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: <em class="text-colorSec">{{ task.deadline ? task.deadline|date('Y-m-d') : '' }}</em></h6>
+                            <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: <em class="text-colorSec">{{ task.deadline ? task.deadline|date('d-m-Y') : '' }}</em></h6>
                             <hr>
                             <p>{{ task.description }}</p>
                             <hr>
-                            <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn bgColorPrim text-color my-4">Modifier/supprimer</a>
-                            <button type="submit" name="finir" class="btn bgColorPrim text-color my-4">Finir</button>
+                            {% if task.status == "en cours" %}
+                            <div class="row">
+                                <div class="col-8 col-sm-4 col-md-4 col-lg-6 col-xl-5 col-xxl-3 m-auto">
+                                    <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn bgColorPrim text-color my-4">Modifier/supprimer</a>
+                                </div>
+                                <div class="col-4 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-8 m-auto">
+                                    <form action="" method="post">
+                                        <button type="submit" name="finir" value="{{task.id}}" class="btn bgColorPrim text-color my-4">Finir</button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div>
+                                <p>Tâche terminée</p>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </article>
                 {% endfor %}
-                {% else %}
-                <div class="alert alert-secondary">Pas encore de tâche sur ce projet</div>
-                {% endif %}
+            {% else %}
+            <div class="alert alert-secondary">Pas encore de tâche sur ce projet</div>
+            {% endif %}
                 <aside class="container">
                     <a href="{{ path('project_index') }}" class="my-5 text-colorPrim"><i class="fas fa-angle-left"></i>Retour</a>
                 </aside>

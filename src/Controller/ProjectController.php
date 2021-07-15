@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Enity\User;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,9 +57,22 @@ class ProjectController extends AbstractController
     }
 
 
-    #[Route('project/{id}', name: 'project_show', methods: ['GET'])]
-    public function show(Project $project): Response
+    #[Route('project/{id}', name: 'project_show', methods: ['GET', 'POST'])]
+    public function show(Project $project, TaskRepository $taskRepository): Response
     {
+        if(!empty($_POST) AND isset($_POST['finir'])){
+            $task = $taskRepository->find($_POST['finir']);
+            $task->setStatus("Terminé");
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($task);
+            $entityManager->flush();
+
+            $this->addFlash(
+                "success", 
+                "Votre tâche est maintenant terminé"
+            );
+        };
+
         $tasks = $project->getTasks();
         if($project->getUser()==$this->getUser()){ 
             return $this->render('project/show.html.twig', [
@@ -70,6 +84,9 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
     }
+
+
+
 
     #[Route('project/{id}/edit', name: 'project_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Project $project): Response

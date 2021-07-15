@@ -4,6 +4,7 @@
 
 {% block body %}
 <main>
+    {{ include('project/_help.html.twig') }}
     <section class="container my-5">
         <aside class="text-center">
             <a href="{{ path('project_new') }}" class="btn btn-md bgColorPrim text-color mb-4"> <i class="far fa-plus-square"></i> Créer un nouveau projet</a>

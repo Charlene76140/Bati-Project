@@ -37,7 +37,7 @@ class TaskController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $task->setCreationDate(new \DateTime());
-            $task->setStatus("en cours");
+            $task->setStatus("En cours");
             $task->setProject($project);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($task);
