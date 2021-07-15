@@ -22,6 +22,10 @@ main{
     color : #2e5077;
 }
 
+.text-colorSec{
+    color : #611c35;
+}
+
 .nav> .nav-item> .nav-link{
     color: #d7e8ba;
 }

@@ -33,12 +33,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="card-title border border-1 col-lg-10 m-auto py-3">Date butoire: {{ task.deadline ? task.deadline|date('Y-m-d') : '' }}</h6>
+                            <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: <em class="text-colorSec">{{ task.deadline ? task.deadline|date('Y-m-d') : '' }}</em></h6>
                             <hr>
                             <p>{{ task.description }}</p>
                             <hr>
-                            <a href="{{ path('project_edit', {'id': task.id}) }}" class="btn bgColorPrim text-color my-4">Modifier/supprimer</a>
-                            <a href="#" class="btn bgColorPrim text-color my-4">Finir</a>
+                            <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn bgColorPrim text-color my-4">Modifier/supprimer</a>
+                            <button type="submit" name="finir" class="btn bgColorPrim text-color my-4">Finir</button>
                         </div>
                     </div>
                 </article>

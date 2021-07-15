@@ -15,14 +15,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
-#[Route('/project')]
 class ProjectController extends AbstractController
 {
-    #[Route('/', name: 'project_index', methods: ['GET'])]
+    #[Route('/', name: 'home', methods: ['GET'])]
+    #[Route('/project', name: 'project_index', methods: ['GET'])]
     public function index(ProjectRepository $projectRepository): Response
     {
+        $projects= $projectRepository->findUserProjects($this->getUser()->getId());
         return $this->render('project/index.html.twig', [
-            // 'projects' => $projectRepository->findAll(),
+            'projects' => $projects
         ]);
     }
 
@@ -55,7 +56,7 @@ class ProjectController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'project_show', methods: ['GET'])]
+    #[Route('project/{id}', name: 'project_show', methods: ['GET'])]
     public function show(Project $project): Response
     {
         $tasks = $project->getTasks();
@@ -70,7 +71,7 @@ class ProjectController extends AbstractController
         }
     }
 
-    #[Route('/{id}/edit', name: 'project_edit', methods: ['GET', 'POST'])]
+    #[Route('project/{id}/edit', name: 'project_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Project $project): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
@@ -78,6 +79,10 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                "success", 
+                "Votre projet a bien été modifié"
+            );
 
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -88,13 +93,18 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'project_delete', methods: ['POST'])]
+    #[Route('project/{id}/delete', name: 'project_delete', methods: ['POST'])]
     public function delete(Request $request, Project $project): Response
     {
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($project);
             $entityManager->flush();
+
+            $this->addFlash(
+                "danger", 
+                "Votre projet a bien été supprimé"
+            );
         }
 
         return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
