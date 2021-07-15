@@ -74,7 +74,6 @@ header h1{
 
 .scroll{
     margin-top: 5vh;
-    font-size: 0.9em;
     overflow : scroll;
     margin-bottom: 5vh;
 }

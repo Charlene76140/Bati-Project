@@ -21,15 +21,15 @@
             {% endfor %}
             {% if project.tasks is not empty %}
                 {% for task in project.tasks %}
-                <article class="col-9 m-auto col-md-6 col-lg-4 my-5 text-center">
-                    <div class="card text-center">
+                <article class="col-10 col-sm-9 col-md-6 col-lg-6 col-xl-4 m-auto my-5 text-center">
+                    <div class="card border-secondary text-center">
                         <div class="card-header py-4">
-                            <div class="row">
-                                <div class="col-8">
-                                    <h5> <strong>{{task.name}}</strong> </h5>
+                            <div class="row m-auto">
+                                <div class="col-6 col-md-8 m-auto">
+                                    <h6> <strong>{{task.name}}</strong> </h6>
                                 </div>
                                 {% if task.status == "En cours"%}
-                                <div class="col-4">   
+                                <div class="col-6 col-md-4 m-auto">   
                                     <h6 class="encours">{{task.status}}</h6>
                                 </div>
                                 {% else %}
@@ -45,19 +45,21 @@
                             <p>{{ task.description }}</p>
                             <hr>
                             {% if task.status == "En cours" %}
-                            <div class="row m-auto">
-                                <div class="col-8 col-sm-4 col-md-4 col-lg-6">
-                                    <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn bgColorPrim text-color my-4">Modifier/supprimer</a>
-                                </div>
-                                <div class="col-4 col-sm-6 col-md-6 col-lg-6">
-                                    <form action="" method="post">
-                                        <button type="submit" name="finir" value="{{task.id}}" class="btn bgColorPrim text-color my-4 w-100">Finir</button>
-                                    </form>
+                            <div class="container">
+                                <div class="row m-auto">
+                                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                        <form action="" method="post">
+                                            <button type="submit" name="finir" value="{{task.id}}" class="btn bgColorPrim text-color my-3 w-100">Finir</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8">
+                                        <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn bgColorPrim text-color my-3 w-100">Modif/Suppr</a>
+                                    </div>
                                 </div>
                             </div>
                             {% else %}
                             <div>
-                                <p>Tâche terminée</p>
+                                <p class="text-success border-secondary w-50 m-auto"> <strong>Tâche terminée</strong></p>
                             </div>
                             {% endif %}
                         </div>
