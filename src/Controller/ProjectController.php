@@ -58,10 +58,12 @@ class ProjectController extends AbstractController
 
 
     #[Route('project/{id}', name: 'project_show', methods: ['GET', 'POST'])]
-    public function show(Project $project, TaskRepository $taskRepository): Response
+    public function show(Project $project, TaskRepository $taskRepository, Request $request): Response
     {
-        if(!empty($_POST) AND isset($_POST['finir'])){
-            $task = $taskRepository->find($_POST['finir']);
+        $data= $request->get('finir');
+        
+        if(!empty($data) AND isset($data)){
+            $task = $taskRepository->find($data);
             $task->setStatus("Terminé");
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($task);

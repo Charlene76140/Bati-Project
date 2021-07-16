@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
                     $task->setDescription("inopia pauloque tempore restituit etiam ex lassatis.");
                     $task->setCreationDate(new \DateTime());
 
-                    $int= mt_rand(1262055681,1262055681);
+                    $int= mt_rand(1262055681,1671115260);
                     $date= date("Y-m-d", $int);
                     $task->setDeadline(new \DateTime($date));
 

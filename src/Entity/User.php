@@ -26,11 +26,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
+    #[Assert\NotBlank]
     private $email;
 
     /**
      * @ORM\Column(type="json")
      */
+    #[Assert\NotBlank]
     private $roles = [];
 
     /**
@@ -42,11 +44,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=50)
      */
+    #[Assert\NotBlank]
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
+    #[Assert\NotBlank]
     private $lastname;
 
     /**

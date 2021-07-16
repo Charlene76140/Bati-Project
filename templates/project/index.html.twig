@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project index{% endblock %}
+{% block title %}Projets{% endblock %}
 
 {% block body %}
 <main>
@@ -31,7 +31,6 @@
                             <hr>
                             <a href="{{ path('project_show', {'id': project.id}) }}" class="btn bgColorPrim text-color my-3">Voir</a>
                             <a href="{{ path('project_edit', {'id': project.id}) }}" class="btn bgColorPrim text-color my-3">Modif/Suppr</a>
-                            <!-- <a href="#" class="btn bgColorPrim text-color my-3">Finir</a> -->
                         </div>
                     </div>
                 </article>

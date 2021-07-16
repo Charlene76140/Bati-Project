@@ -20,11 +20,13 @@ class Task
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank]
     private $name;
 
     /**
      * @ORM\Column(type="text")
      */
+    #[Assert\NotBlank]
     private $description;
 
     /**
@@ -35,6 +37,7 @@ class Task
     /**
      * @ORM\Column(type="datetime")
      */
+    #[Assert\NotBlank]
     private $deadline;
 
     /**
