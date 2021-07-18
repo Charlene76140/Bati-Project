@@ -9,7 +9,7 @@ est qu’il est coûteux, peu sécurisé et demande de la place. Le client souha
 travaux de gérer leurs projets de manière informatisée.
 
 Spécifications fonctionnelles :
-Pour ce faire, vous devez concevoir une application qui permet à l’utilisateur de :
+Vous devez concevoir une application qui permet à l’utilisateur de :
 - Se connecter avec son compte personnel ou de s’inscrire s’il n’a pas de compte
 - Voir tous les projets de cet utilisateur sur une page
 - Créer un nouveau projet via un formulaire
@@ -22,3 +22,10 @@ Pour ce faire, vous devez concevoir une application qui permet à l’utilisateu
 - Utiliser l’application sur les chantiers via une tablette ou un smartphone
 L’application est également visuellement enrichie par un ou plusieurs scripts JS afin d’offrir à
 l’utilisateur une expérience la plus intuitive possible.
+
+Spécifications techniques :
+- Framework Symfony 5
+- Vous pouvez utiliser si vous le souhaitez la commande de make crud
+- Sécurité de l’application gérée avec le bundle de sécurité Symfony
+- Idéalement (mais pas obligatoirement) vous générez les données à l’aide de fixtures
+- JavaScript ES6
