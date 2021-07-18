@@ -22,6 +22,7 @@ class ProjectController extends AbstractController
     #[Route('/project', name: 'project_index', methods: ['GET'])]
     public function index(ProjectRepository $projectRepository): Response
     {
+        //Method called from the Project repository which allows you to retrieve the projects of the logged-in user in DB
         $projects= $projectRepository->findUserProjects($this->getUser()->getId());
         return $this->render('project/index.html.twig', [
             'projects' => $projects
@@ -42,24 +43,23 @@ class ProjectController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
+            //message confirming the action to the user
             $this->addFlash(
                 "success", 
                 "Votre projet a bien été ouvert"
             );
-
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('project/new.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
     }
 
-
     #[Route('project/{id}', name: 'project_show', methods: ['GET', 'POST'])]
     public function show(Project $project, TaskRepository $taskRepository, Request $request): Response
     {
+        //method of the object request allowing to retrieve the value contained in the post, the id of the task
         $data= $request->get('finir');
         
         if(!empty($data) AND isset($data)){
@@ -73,11 +73,11 @@ class ProjectController extends AbstractController
                 "success", 
                 "Votre tâche est maintenant terminé"
             );
-
             return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()], Response::HTTP_SEE_OTHER);
         };
 
-        if($project->getUser()==$this->getUser()){ 
+        // heck to display only the user's projects
+        if($project->getUser()== $this->getUser()){ 
             return $this->render('project/show.html.twig', [
             'project' => $project,
             ]);
@@ -86,9 +86,6 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
     }
-
-
-
 
     #[Route('project/{id}/edit', name: 'project_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Project $project): Response
@@ -102,7 +99,6 @@ class ProjectController extends AbstractController
                 "success", 
                 "Votre projet a bien été modifié"
             );
-
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -125,7 +121,6 @@ class ProjectController extends AbstractController
                 "Votre projet a bien été supprimé"
             );
         }
-
         return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
     }
 }

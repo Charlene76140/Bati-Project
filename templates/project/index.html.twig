@@ -19,7 +19,9 @@
                     </div>
                 {% endfor %}
             {% endfor %}
+            <!-- condition which verifies that there are indeed projects to display -->
             {% if app.user.projects is not empty %}
+            <!-- loop, for each user's project, an article is created -->
                 {% for project in projects %}
                 <article class="col-9 m-auto col-md-6 col-lg-4 my-5 text-center">
                     <div class="card border-dark text-center">

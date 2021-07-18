@@ -28,6 +28,7 @@
                                 <div class="col-6 col-md-8 m-auto">
                                     <h6> <strong>{{task.name}}</strong> </h6>
                                 </div>
+                                <!-- condition that checks the status to display a different rendering to the user -->
                                 {% if task.status == "En cours"%}
                                 <div class="col-6 col-md-4 m-auto">   
                                     <h6 class="encours">{{task.status}}</h6>

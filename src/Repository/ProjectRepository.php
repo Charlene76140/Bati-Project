@@ -48,6 +48,7 @@ class ProjectRepository extends ServiceEntityRepository
     }
     */
 
+    // function which allows a join between the user table and the project table in the DB
     public function findUserProjects(int $id) {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.user', 'u')

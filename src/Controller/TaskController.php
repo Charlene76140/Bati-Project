@@ -47,7 +47,6 @@ class TaskController extends AbstractController
                 "success", 
                 "Nouvelle tâche enregistrée"
             );
-
             return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -77,7 +76,6 @@ class TaskController extends AbstractController
                 "success", 
                 "Votre tâche a bien été modifiée"
             );
-
             return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -94,12 +92,12 @@ class TaskController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($task);
             $entityManager->flush();
+            
             $this->addFlash(
                 "danger", 
                 "Votre tâche a bien été supprimée"
             );
         }
-
         return $this->redirectToRoute('task_index', [], Response::HTTP_SEE_OTHER);
     }
 }
