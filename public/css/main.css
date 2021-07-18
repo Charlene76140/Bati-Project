@@ -1,0 +1,95 @@
+body{
+    font-family: 'Maven Pro', sans-serif;
+}
+
+main{
+    min-height: 58vh;
+}
+
+.bgColorPrim{
+    background-color: #2e5077;
+}
+
+.bgColorSec{
+    background-color: #611c35;
+}
+
+.text-color{
+    color: #d7e8ba; 
+}
+
+.text-colorPrim{
+    color : #2e5077;
+}
+
+.text-colorSec{
+    color : #611c35;
+}
+
+.nav> .nav-item> .nav-link{
+    color: #d7e8ba;
+}
+
+/*-----------------------Mobile Version----------------------------------------*/
+.onlyIpadComputer{
+    display: none;
+}
+
+header h1{
+    font-size: 1em;
+}
+
+.encours{
+    border : 1px solid #611c35;
+    background-color : #611c35;
+    color: white; 
+}
+
+.termine{
+    border: 1px solid green;
+    background-color: green;
+    color: white; 
+}
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+.layer{
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.794);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index:1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll{
+    margin-top: 5vh;
+    overflow : scroll;
+    margin-bottom: 5vh;
+}
+/*-----------------------Ipad Version------------------------------------------*/
+ @media screen and (min-width: 576px){
+    .onlyIpadComputer{
+        display: block;
+    }
+    
+    header h1{
+        font-size: 1.5em;
+    }
+ }
+/*-----------------------Computer Version------------------------------------------*/
+ @media screen and (min-width: 992px){
+
+    header h1{
+        font-size: 2em;
+    }
+}

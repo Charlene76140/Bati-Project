@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tâches{% endblock %}
+
+{% block body %}
+<main>
+    {{ include('project/_help.html.twig') }}
+    <section class="container my-5">
+        <aside class="text-center">
+            <a href="{{ path('task_new', {id: project.id}) }}" class="btn btn-md bgColorPrim text-color my-4"> <i class="far fa-plus-square"></i> Créer une nouvelle tâche</a>
+        </aside>
+        <hr>
+        <h2 class="my-4 text-center">Tâches associées au projet : </h2> 
+        <div class="row">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% if project.tasks is not empty %}
+                {% for task in project.tasks %}
+                <article class="col-10 col-sm-9 col-md-6 col-lg-6 col-xl-4 m-auto my-5 text-center">
+                    <div class="card border-secondary text-center">
+                        <div class="card-header py-4">
+                            <div class="row m-auto">
+                                <div class="col-6 col-md-8 m-auto">
+                                    <h6> <strong>{{task.name}}</strong> </h6>
+                                </div>
+                                <!-- condition that checks the status to display a different rendering to the user -->
+                                {% if task.status == "En cours"%}
+                                <div class="col-6 col-md-4 m-auto">   
+                                    <h6 class="encours">{{task.status}}</h6>
+                                </div>
+                                {% else %}
+                                <div class="col-4">   
+                                    <h6 class="termine">{{task.status}}</h6>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: <strong class="text-colorSec">{{ task.deadline ? task.deadline|date('d-m-Y') : '' }}</strong></h6>
+                            <hr>
+                            <p>{{ task.description }}</p>
+                            <hr>
+                            {% if task.status == "En cours" %}
+                            <div class="container">
+                                <div class="row m-auto">
+                                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                        <form action="" method="post">
+                                            <button type="submit" name="finir" value="{{task.id}}" class="btn bgColorPrim text-color my-3 w-100">Finir</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8">
+                                        <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn bgColorPrim text-color my-3 w-100">Modif/Suppr</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div>
+                                <p class="text-success border-secondary w-50 m-auto"> <strong>Tâche terminée</strong></p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            {% else %}
+            <div class="alert alert-secondary">Pas encore de tâche sur ce projet</div>
+            {% endif %}
+                <aside class="container">
+                    <a href="{{ path('project_index') }}" class="my-5 text-colorPrim"><i class="fas fa-angle-left"></i>Retour</a>
+                </aside>
+        </div>
+    </section>
+</main>
+{% endblock %}

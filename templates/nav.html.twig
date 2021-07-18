@@ -1,0 +1,27 @@
+<nav class="bgColorSec py-2">
+    <div class="container-fluid">
+        {% if app.user %}
+        <ul class="nav justify-content-center justify-content-lg-start">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ path('project_index') }}">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick= "help();" href="#">Aide</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="nav justify-content-center justify-content-lg-start">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+            </li>
+        </ul>
+        {% endif %}
+        </div>
+    </div>
+</nav>

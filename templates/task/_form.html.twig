@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+    {{ form_row(form.name,{
+        label : "Nom de la tâche"
+    }) }}
+      
+    {{ form_row(form.description, {
+        label : "Description"
+    }) }}
+    {{ form_row(form.deadline, {
+        label : "Date butoire"
+    }) }}
+    <button class="btn bgColorPrim text-color my-4">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

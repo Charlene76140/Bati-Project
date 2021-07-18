@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projets{% endblock %}
+
+{% block body %}
+<main>
+    {{ include('project/_help.html.twig') }}
+    <section class="container my-5">
+        <aside class="text-center">
+            <a href="{{ path('project_new') }}" class="btn btn-md bgColorPrim text-color mb-4"> <i class="far fa-plus-square"></i> Créer un nouveau projet</a>
+        </aside>
+        <hr>
+        <h2 class="my-4 text-center">Bonjour {{ app.user.firstname }}! Voici vos projets en cours : </h2>
+        <div class="row">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <!-- condition which verifies that there are indeed projects to display -->
+            {% if app.user.projects is not empty %}
+            <!-- loop, for each user's project, an article is created -->
+                {% for project in projects %}
+                <article class="col-9 m-auto col-md-6 col-lg-4 my-5 text-center">
+                    <div class="card border-dark text-center">
+                        <h5 class="card-header bgColorPrim text-color py-4">{{project.name}}</h5><br>
+                        <div class="card-body">
+                            <h6 class="card-title border border-1 col-lg-10 m-auto">Date butoire: <strong class="text-colorSec"> {{ project.deadline ? project.deadline|date('d-m-Y') : '' }} </strong></h6>
+                            <hr>
+                            <p>{{ project.description }}</p>
+                            <hr>
+                            <a href="{{ path('project_show', {'id': project.id}) }}" class="btn bgColorPrim text-color my-3">Voir</a>
+                            <a href="{{ path('project_edit', {'id': project.id}) }}" class="btn bgColorPrim text-color my-3">Modif/Suppr</a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-secondary">Pas de projet en cours pour l'instant</div>
+            {% endif %}
+        </div>
+    </section>
+</main>   
+{% endblock %}
